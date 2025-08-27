@@ -119,6 +119,17 @@ module.exports.check= async(userId,code,totalPrice) =>{
          throw createError(400,'Bạn đã dùng quá số lần')
     }
 
+    let discountValue = 0;
+    if (voucher.discountType === 'percentage') {
+        discountValue = (voucher.discountValue / 100) * totalPrice;
+        if (voucher.maxDiscountValue && discountValue > voucher.maxDiscountValue) {
+            discountValue = voucher.maxDiscountValue;
+        }
+    } else if (voucher.discountType === 'fixed') {
+        discountValue = voucher.discountValue;
+    }
+
+
 
     return {
         status: 'OK',
@@ -126,7 +137,7 @@ module.exports.check= async(userId,code,totalPrice) =>{
         data:{
             isSuccess:true,
             voucher: voucher,
-            discountValue: voucher.discountValue
+            discountValue: discountValue
         }
     }
 }

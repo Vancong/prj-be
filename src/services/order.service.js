@@ -11,7 +11,9 @@ const VoucherDtb=require('../models/Voucher.Model')
 module.exports.create= async(data) =>{
 
     let totalPrice = 0;
+    let finalPrice=0;
     let updateItems = [];
+
     for (const item of data.items) {
         const product = await productDtb.findOne({ _id: item.product });
         if (!product) {
@@ -56,15 +58,13 @@ module.exports.create= async(data) =>{
                 data.discountCode,
                 totalPrice
         );
-        
-         totalPrice -= voucherRes.data.discountValue;
-        
+         finalPrice = voucherRes.data.discountValue;
     }
     
 
     const shipping= totalPrice>=1000000?0: 28000;
     data.shipping = shipping;
-    const finalPrice = totalPrice  + shipping;
+     finalPrice =totalPrice  + shipping-finalPrice;
 
     data.finalPrice=finalPrice;
     data.items=updateItems;

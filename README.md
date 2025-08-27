@@ -20,10 +20,15 @@ Xây dựng API cho website bán nước hoa, quản lý sản phẩm, giỏ hà
 - Cloudinary (upload ảnh)
 - Nodemailer (gửi email)
 
+## Tài khoản demo Admin
+    Email: admin@gmail.com
+    Password: 888888
+
 ## Cài đặt & chạy dự án
 ```bash
 
 git clone https://github.com/Vancong/ecommerce-be
+
 cd ecommerce-be
 
 npm install
